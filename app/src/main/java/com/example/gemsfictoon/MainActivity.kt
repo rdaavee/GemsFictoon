@@ -2,24 +2,43 @@ package com.example.gemsfictoon
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.example.gemsfictoon.databinding.ActivityMainBinding
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var bottomNavigationView : BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        bottomNavigationView = findViewById(R.id.bottomNav)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        binding.bottomNav.setupWithNavController(navController)
-
-        setContentView(binding.root)
-
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when(menuItem.itemId) {
+                R.id.globeFragment -> {
+                    replaceFragment(GlobeFragment())
+                    true
+                }
+                R.id.bookFragment -> {
+                    replaceFragment(BookFragment())
+                    true
+                }
+                R.id.notificationFragment -> {
+                    replaceFragment(NotificationFragment())
+                    true
+                }
+                R.id.profileFragment -> {
+                    replaceFragment(ProfileFragment())
+                    true
+                }
+                else -> false
+            }
+        }
+        replaceFragment(DashboardFragment())
+    }
+    private fun replaceFragment(fragment : Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
     }
 }

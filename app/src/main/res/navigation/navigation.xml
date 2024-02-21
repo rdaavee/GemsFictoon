@@ -3,25 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/globeFragment2">
+    app:startDestination="@id/globeFragment">
     <fragment
-        android:id="@+id/profileFragment2"
-        android:name="com.example.gemsfictoon.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/bookFragment2"
-        android:name="com.example.gemsfictoon.BookFragment"
-        android:label="fragment_book"
-        tools:layout="@layout/fragment_book" />
-    <fragment
-        android:id="@+id/globeFragment2"
+        android:id="@+id/globeFragment"
         android:name="com.example.gemsfictoon.GlobeFragment"
         android:label="fragment_globe"
         tools:layout="@layout/fragment_globe" />
     <fragment
-        android:id="@+id/dashboardFragment2"
+        android:id="@+id/profileFragment"
+        android:name="com.example.gemsfictoon.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/bookFragment"
+        android:name="com.example.gemsfictoon.BookFragment"
+        android:label="fragment_book"
+        tools:layout="@layout/fragment_book" />
+    <fragment
+        android:id="@+id/dashboardFragment"
         android:name="com.example.gemsfictoon.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/notificationFragment2"
+        android:name="com.example.gemsfictoon.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
 </navigation>

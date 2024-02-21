@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/globeFragment2"
+        android:id="@+id/globeFragment"
         android:icon="@drawable/globe"
         android:title="Browse"/>
 
     <item
-        android:id="@+id/bookFragment2"
+        android:id="@+id/bookFragment"
         android:icon="@drawable/book"
         android:title="Books"/>
 
@@ -17,12 +17,12 @@
         android:title="Create Post"/>
 
     <item
-        android:id="@+id/nav_notification"
-        android:icon="@drawable/search"
-        android:title="Search"/>
+        android:id="@+id/notificationFragment"
+        android:icon="@drawable/notification"
+        android:title="Notification"/>
 
     <item
-        android:id="@+id/profileFragment2"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/user"
         android:title="Profile"/>
 

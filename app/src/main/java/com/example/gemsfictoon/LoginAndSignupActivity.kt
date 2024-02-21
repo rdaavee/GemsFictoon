@@ -9,15 +9,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.navigation.Navigation.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LoginAndSignupActivity : AppCompatActivity() {
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_and_signup)
-
 
         val signUp = findViewById<TextView>(R.id.signUp)
         val logIn = findViewById<TextView>(R.id.logIn)
