@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/globeFragment"
-        android:icon="@drawable/globe"
-        android:title="Browse"/>
+        android:id="@+id/dashboardFragment"
+        android:icon="@drawable/home"
+        android:title="Home"/>
 
     <item
-        android:id="@+id/bookFragment"
-        android:icon="@drawable/book"
-        android:title="Books"/>
+        android:id="@+id/globeFragment"
+        android:icon="@drawable/globe"
+        android:title="Community"/>
 
     <item
         android:id="@+id/post"
