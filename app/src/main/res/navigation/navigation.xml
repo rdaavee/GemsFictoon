@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/globeFragment2">
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.example.gemsfictoon.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/bookFragment2"
+        android:name="com.example.gemsfictoon.BookFragment"
+        android:label="fragment_book"
+        tools:layout="@layout/fragment_book" />
+    <fragment
+        android:id="@+id/globeFragment2"
+        android:name="com.example.gemsfictoon.GlobeFragment"
+        android:label="fragment_globe"
+        tools:layout="@layout/fragment_globe" />
+    <fragment
+        android:id="@+id/dashboardFragment2"
+        android:name="com.example.gemsfictoon.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+</navigation>

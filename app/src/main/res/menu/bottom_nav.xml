@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/globeFragment2"
+        android:icon="@drawable/globe"
+        android:title="Browse"/>
+
+    <item
+        android:id="@+id/bookFragment2"
+        android:icon="@drawable/book"
+        android:title="Books"/>
+
+    <item
+        android:id="@+id/post"
+        android:icon="@drawable/pen"
+        android:title="Create Post"/>
+
+    <item
+        android:id="@+id/nav_notification"
+        android:icon="@drawable/search"
+        android:title="Search"/>
+
+    <item
+        android:id="@+id/profileFragment2"
+        android:icon="@drawable/user"
+        android:title="Profile"/>
+
+</menu>
