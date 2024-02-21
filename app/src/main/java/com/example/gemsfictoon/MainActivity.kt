@@ -17,12 +17,12 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
-                R.id.globeFragment -> {
-                    replaceFragment(GlobeFragment())
+                R.id.dashboardFragment -> {
+                    replaceFragment(DashboardFragment())
                     true
                 }
-                R.id.bookFragment -> {
-                    replaceFragment(BookFragment())
+                R.id.globeFragment -> {
+                    replaceFragment(GlobeFragment())
                     true
                 }
                 R.id.notificationFragment -> {
