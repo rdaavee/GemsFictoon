@@ -2,6 +2,7 @@ package com.example.gemsfictoon
 
 import android.app.Activity
 import android.content.Intent
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,11 +14,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.gemsfictoon.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
+    private lateinit var binding : FragmentProfileBinding
+
     private lateinit var imgButton: Button
     private lateinit var imageView: ImageView
+    private lateinit var settingsBtn : ImageView
 
     private var selectedImageUri: Uri? = null
 
@@ -26,6 +31,12 @@ class ProfileFragment : Fragment() {
 
         imgButton = view.findViewById(R.id.btn_changeProfile)
         imageView = view.findViewById(R.id.iv_image)
+        settingsBtn = view.findViewById(R.id.iv_settingsBtn)
+
+        settingsBtn.setOnClickListener {
+            val intent = Intent(activity, ProfileSettingsActivity::class.java)
+            startActivity(intent)
+        }
 
         imgButton.setOnClickListener {
             pickImageGallery()
@@ -41,7 +52,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     private val pickImageGalleryLauncher =
@@ -87,5 +99,6 @@ class ProfileFragment : Fragment() {
         // Reload the image after restoring the state
         loadImage(selectedImageUri)
     }
+
 }
 
