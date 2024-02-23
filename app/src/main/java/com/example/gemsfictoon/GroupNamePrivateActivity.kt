@@ -17,6 +17,7 @@ class GroupNamePrivateActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.iv_backBtnPrivate).setOnClickListener {
             if (supportFragmentManager.backStackEntryCount > 0) {
                 supportFragmentManager.popBackStack()
+                finish()
             } else {
                 finish()
             }
@@ -28,4 +29,5 @@ class GroupNamePrivateActivity : AppCompatActivity() {
             transaction.commit()
         }
     }
+
 }

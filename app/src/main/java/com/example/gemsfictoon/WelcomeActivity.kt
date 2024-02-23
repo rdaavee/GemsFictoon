@@ -15,6 +15,7 @@ class WelcomeActivity : AppCompatActivity() {
 
         getStartedBtn.setOnClickListener {
             startActivity(Intent(this@WelcomeActivity, LoginAndSignupActivity::class.java))
+            finish()
         }
     }
 }

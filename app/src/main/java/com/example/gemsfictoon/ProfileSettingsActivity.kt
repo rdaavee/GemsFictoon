@@ -19,6 +19,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile_settings)
 
         findViewById<ImageView>(R.id.iv_settingsBackBtn).setOnClickListener {
+                finish()
             if (supportFragmentManager.backStackEntryCount > 0) {
                 supportFragmentManager.popBackStack()
             } else {
@@ -46,6 +47,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_logout).setOnClickListener {
             val intent = Intent(this, LoginAndSignupActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

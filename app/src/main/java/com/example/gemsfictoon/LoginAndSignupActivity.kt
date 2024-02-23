@@ -44,6 +44,7 @@ class LoginAndSignupActivity : AppCompatActivity() {
 
         loginConfirm.setOnClickListener {
             startActivity(Intent(this@LoginAndSignupActivity, MainActivity::class.java))
+            finish()
         }
 
         signUpConfirm.setOnClickListener {
