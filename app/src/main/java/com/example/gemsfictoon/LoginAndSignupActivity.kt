@@ -5,10 +5,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.gemsfictoon.controller.ApiClient
+import com.example.gemsfictoon.controller.TokenManager
+import com.example.gemsfictoon.models.LoginRequest
+import com.example.gemsfictoon.models.LoginResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginAndSignupActivity : AppCompatActivity() {
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -17,7 +25,13 @@ class LoginAndSignupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login_and_signup)
 
         val signUp = findViewById<TextView>(R.id.signUp)
+
         val logIn = findViewById<TextView>(R.id.logIn)
+        val email =findViewById<TextView>(R.id.eMail)
+        val password = findViewById<TextView>(R.id.passwords)
+
+
+
         val loginConfirm = findViewById<Button>(R.id.loginConfirm)
         val signUpConfirm = findViewById<Button>(R.id.signUpConfirm)
         val signUpLayout = findViewById<LinearLayout>(R.id.signUpLayout)
@@ -43,6 +57,40 @@ class LoginAndSignupActivity : AppCompatActivity() {
         }
 
         loginConfirm.setOnClickListener {
+
+            val requestBody = LoginRequest(email.text.toString(), password.text.toString())
+            val postCall: Call<LoginResponse> = ApiClient.apiService.postData(requestBody)
+
+            val tokenManager = TokenManager(applicationContext)
+            postCall.enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    if (response.isSuccessful) {
+                        // Successful login
+                        val loginResponse: LoginResponse? = response.body()
+                        // Access the response data as needed
+                        Log.d("Response"," ${loginResponse?.authToken}")
+
+                        if(loginResponse != null){
+                            tokenManager.saveToken(loginResponse?.authToken.toString())
+                        }
+
+                        println("Login Successful. Response: $loginResponse")
+                    } else {
+                        // Unsuccessful login
+                        Log.d("Response"," ${response.code()}")
+
+                        println("Login Failed. Response Code: ${response.code()}")
+                        // You can handle errors based on the response code or other conditions
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    // Network or unexpected error
+                    println("Login Request Failed. Error: ${t.message}")
+                    Log.d("Response"," ${t.message}")
+
+                }
+            })
             startActivity(Intent(this@LoginAndSignupActivity, MainActivity::class.java))
             finish()
         }
