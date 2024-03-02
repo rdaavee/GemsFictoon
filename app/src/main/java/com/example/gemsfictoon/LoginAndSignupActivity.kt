@@ -71,28 +71,26 @@ class LoginAndSignupActivity : AppCompatActivity() {
                         Log.d("Response"," ${loginResponse?.authToken}")
 
                         if(loginResponse != null){
-                            tokenManager.saveToken(loginResponse?.authToken.toString())
+                            tokenManager.saveToken(loginResponse.authToken)
+                            artDialogBuilder.setTitle("You have successfully logged in")
+                            artDialogBuilder.setMessage("")
+                            startActivity(Intent(this@LoginAndSignupActivity, MainActivity::class.java))
+                            finish()
+
                         }
-
-                        println("Login Successful. Response: $loginResponse")
                     } else {
-                        // Unsuccessful login
-                        Log.d("Response"," ${response.code()}")
-
-                        println("Login Failed. Response Code: ${response.code()}")
+                        artDialogBuilder.setTitle("Login Failed")
+                        artDialogBuilder.setMessage("${response.code()}")
                         // You can handle errors based on the response code or other conditions
                     }
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     // Network or unexpected error
-                    println("Login Request Failed. Error: ${t.message}")
-                    Log.d("Response"," ${t.message}")
-
+                    artDialogBuilder.setTitle("Login Failed")
+                    artDialogBuilder.setMessage("${t.message}")
                 }
             })
-            startActivity(Intent(this@LoginAndSignupActivity, MainActivity::class.java))
-            finish()
         }
 
         signUpConfirm.setOnClickListener {
