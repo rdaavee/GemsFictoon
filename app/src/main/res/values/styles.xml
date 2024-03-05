@@ -18,4 +18,8 @@
         <item name="colorSecondary">@color/blueColor</item>
     </style>
 
+    <style name="spinnerTextSize" parent="TextAppearance.AppCompat.Widget.DropDownItem">
+        <item name="android:textSize">13sp</item> <!-- Adjust the text size as needed -->
+    </style>
+
 </resources>

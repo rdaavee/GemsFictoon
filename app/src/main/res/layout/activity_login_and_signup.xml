@@ -186,7 +186,7 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:hint="Email or Username"
+                    android:hint="Email"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
@@ -209,6 +209,58 @@
                         android:layout_height="wrap_content"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:hint="Username"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    app:shapeAppearanceOverlay="@style/Button4"
+                    app:hintTextColor="#4E4A4A"
+                    app:boxStrokeColor="#4E4A4A"
+                    app:boxStrokeWidth="1dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="textPersonName"
+                        android:id="@+id/userName"
+                        android:ems="10"
+                        android:textSize="13sp"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:hint="User Type"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    app:hintTextColor="#4E4A4A"
+                    app:boxStrokeColor="#4E4A4A"
+                    app:boxStrokeWidth="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/userTypeSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:entries="@array/user_types"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:spinnerMode="dropdown"
+                        app:shapeAppearanceOverlay="@style/Button4"
+                        android:background="@drawable/spinner_border"
+                        style="@style/spinnerTextSize"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:hint="Password"
                     android:layout_marginLeft="5dp"

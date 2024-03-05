@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 
 class LoginAndSignupActivity : AppCompatActivity() {
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -22,6 +24,30 @@ class LoginAndSignupActivity : AppCompatActivity() {
         val signUpConfirm = findViewById<Button>(R.id.signUpConfirm)
         val signUpLayout = findViewById<LinearLayout>(R.id.signUpLayout)
         val logInLayout = findViewById<LinearLayout>(R.id.logInLayout)
+
+        val userTypeSpinner: Spinner = findViewById(R.id.userTypeSpinner)
+
+        when (userTypeSpinner.selectedItem.toString()) {
+            "Reader" -> {
+                // Handle actions for Reader
+                // For example, display a message or perform specific tasks
+                showToast("test reader")
+            }
+            "Author" -> {
+                // Handle actions for Author
+                showToast("test author")
+            }
+            "Admin" -> {
+                // Handle actions for Admin
+                showToast("test admin")
+            }
+            else -> {
+                // Handle unexpected user type
+                showToast("unexpected user type selected")
+            }
+        }
+
+
 
         val artDialogBuilder = AlertDialog.Builder(this)
 
@@ -60,5 +86,9 @@ class LoginAndSignupActivity : AppCompatActivity() {
             val alertDialogBox = artDialogBuilder.create()
             alertDialogBox.show()
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
