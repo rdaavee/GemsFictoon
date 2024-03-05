@@ -5,12 +5,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
+import com.example.gemsfictoon.controller.ApiClient
+import com.example.gemsfictoon.controller.TokenManager
+import com.example.gemsfictoon.models.LoginRequest
+import com.example.gemsfictoon.models.LoginResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginAndSignupActivity : AppCompatActivity() {
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -19,35 +25,17 @@ class LoginAndSignupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login_and_signup)
 
         val signUp = findViewById<TextView>(R.id.signUp)
+
         val logIn = findViewById<TextView>(R.id.logIn)
+        val email =findViewById<TextView>(R.id.eMail)
+        val password = findViewById<TextView>(R.id.passwords)
+
+
+
         val loginConfirm = findViewById<Button>(R.id.loginConfirm)
         val signUpConfirm = findViewById<Button>(R.id.signUpConfirm)
         val signUpLayout = findViewById<LinearLayout>(R.id.signUpLayout)
         val logInLayout = findViewById<LinearLayout>(R.id.logInLayout)
-
-        val userTypeSpinner: Spinner = findViewById(R.id.userTypeSpinner)
-
-        when (userTypeSpinner.selectedItem.toString()) {
-            "Reader" -> {
-                // Handle actions for Reader
-                // For example, display a message or perform specific tasks
-                showToast("test reader")
-            }
-            "Author" -> {
-                // Handle actions for Author
-                showToast("test author")
-            }
-            "Admin" -> {
-                // Handle actions for Admin
-                showToast("test admin")
-            }
-            else -> {
-                // Handle unexpected user type
-                showToast("unexpected user type selected")
-            }
-        }
-
-
 
         val artDialogBuilder = AlertDialog.Builder(this)
 
@@ -69,8 +57,40 @@ class LoginAndSignupActivity : AppCompatActivity() {
         }
 
         loginConfirm.setOnClickListener {
-            startActivity(Intent(this@LoginAndSignupActivity, MainActivity::class.java))
-            finish()
+
+            val requestBody = LoginRequest(email.text.toString(), password.text.toString())
+            val postCall: Call<LoginResponse> = ApiClient.apiService.postData(requestBody)
+
+            val tokenManager = TokenManager(applicationContext)
+            postCall.enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    if (response.isSuccessful) {
+                        // Successful login
+                        val loginResponse: LoginResponse? = response.body()
+                        // Access the response data as needed
+                        Log.d("Response"," ${loginResponse?.authToken}")
+
+                        if(loginResponse != null){
+                            tokenManager.saveToken(loginResponse.authToken)
+                            artDialogBuilder.setTitle("You have successfully logged in")
+                            artDialogBuilder.setMessage("")
+                            startActivity(Intent(this@LoginAndSignupActivity, MainActivity::class.java))
+                            finish()
+
+                        }
+                    } else {
+                        artDialogBuilder.setTitle("Login Failed")
+                        artDialogBuilder.setMessage("${response.code()}")
+                        // You can handle errors based on the response code or other conditions
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    // Network or unexpected error
+                    artDialogBuilder.setTitle("Login Failed")
+                    artDialogBuilder.setMessage("${t.message}")
+                }
+            })
         }
 
         signUpConfirm.setOnClickListener {
@@ -86,9 +106,5 @@ class LoginAndSignupActivity : AppCompatActivity() {
             val alertDialogBox = artDialogBuilder.create()
             alertDialogBox.show()
         }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
