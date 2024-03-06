@@ -4,6 +4,7 @@ import com.example.gemsfictoon.constants.BaseRoute
 import com.example.gemsfictoon.interfaces.AuthCheck
 import com.example.gemsfictoon.interfaces.LogoutRequest
 import com.example.gemsfictoon.interfaces.PostRequest
+import com.example.gemsfictoon.interfaces.RegisterRequest
 import com.example.gemsfictoon.interfaces.UserProfileRequest
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,6 +23,8 @@ object ApiClient {
     val checkAuth: AuthCheck = retrofit.create(AuthCheck::class.java)
 
     val userProfile: UserProfileRequest = retrofit.create(UserProfileRequest::class.java)
+
+    val registerRequest: RegisterRequest = retrofit.create(RegisterRequest::class.java)
 
     val logout: LogoutRequest = retrofit.create(LogoutRequest::class.java)
 }

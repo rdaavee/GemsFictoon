@@ -9,11 +9,14 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
 import com.example.gemsfictoon.controller.ApiClient
 import com.example.gemsfictoon.controller.TokenManager
 import com.example.gemsfictoon.models.LoginRequest
 import com.example.gemsfictoon.models.LoginResponse
+import com.example.gemsfictoon.models.PostResponse
+import com.example.gemsfictoon.models.RegisterRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,9 +30,17 @@ class LoginAndSignupActivity : AppCompatActivity() {
         val signUp = findViewById<TextView>(R.id.signUp)
 
         val logIn = findViewById<TextView>(R.id.logIn)
+
+//        Login
         val email =findViewById<TextView>(R.id.eMail)
         val password = findViewById<TextView>(R.id.passwords)
 
+//        Register
+        val email_reg = findViewById<TextView>(R.id.eMails)
+        val username_reg = findViewById<TextView>(R.id.userName)
+        val usertype_reg = findViewById<Spinner>(R.id.userTypeSpinner)
+        val password_reg = findViewById<TextView>(R.id.passwordss)
+        val password_confimation_reg = findViewById<TextView>(R.id.passwords01)
 
 
         val loginConfirm = findViewById<Button>(R.id.loginConfirm)
@@ -68,7 +79,6 @@ class LoginAndSignupActivity : AppCompatActivity() {
                         // Successful login
                         val loginResponse: LoginResponse? = response.body()
                         // Access the response data as needed
-                        Log.d("Response"," ${loginResponse?.authToken}")
 
                         if(loginResponse != null){
                             tokenManager.saveToken(loginResponse.authToken)
@@ -94,17 +104,63 @@ class LoginAndSignupActivity : AppCompatActivity() {
         }
 
         signUpConfirm.setOnClickListener {
-            artDialogBuilder.setTitle("You have successfully registered")
-            artDialogBuilder.setMessage("")
-            artDialogBuilder.setCancelable(false)
-            artDialogBuilder.setPositiveButton("Proceed") { _, _ ->
-                startActivity(Intent(this@LoginAndSignupActivity, LoginAndSignupActivity::class.java))
-                finish()
-            }
-            artDialogBuilder.setNegativeButton("No") { _, _ ->
-            }
-            val alertDialogBox = artDialogBuilder.create()
-            alertDialogBox.show()
+
+            Log.d("email","${email_reg.text.toString()}")
+            Log.d("username","${username_reg.text.toString()}")
+            Log.d("usertype","${usertype_reg.selectedItem.toString()}")
+            Log.d("password","${password_reg.text.toString()}")
+            Log.d("confirm password","${password_confimation_reg.text.toString()}")
+
+
+
+            val email = email_reg.text.toString()
+            val username = username_reg.text.toString()
+            val usertype = renderUsertype(usertype_reg.selectedItem.toString())
+            val password = password_reg.text.toString()
+            val password_confirm = password_confimation_reg.text.toString()
+
+            val requestBody = RegisterRequest(email, username, usertype, password, password_confirm)
+            val registerRequest:Call<PostResponse> = ApiClient.registerRequest.postData(requestBody)
+
+            registerRequest.enqueue(object :Callback<PostResponse>{
+                override fun onResponse(
+                    call: Call<PostResponse>,
+                    response: Response<PostResponse>
+                ) {
+                    if(response.isSuccessful){
+                        artDialogBuilder.setTitle("${response.body().toString()}")
+                        artDialogBuilder.setMessage("")
+                        artDialogBuilder.setCancelable(false)
+                        artDialogBuilder.setPositiveButton("Proceed") { _, _ ->
+                            startActivity(Intent(this@LoginAndSignupActivity, LoginAndSignupActivity::class.java))
+                            finish()
+                        }
+                        artDialogBuilder.setNegativeButton("No") { _, _ ->
+                        }
+                        val alertDialogBox = artDialogBuilder.create()
+                        alertDialogBox.show()
+                    }else{
+                        Log.d("Failed","Something Went Wrong")
+                    }
+                }
+
+                override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                    Log.d("Failure","$t")
+                }
+            })
+
+
         }
+    }
+
+    private fun renderUsertype(usertype:String):Int{
+        var type = 0;
+         when(usertype){
+            "Admin"->type = 1;
+            "Author"->type = 2;
+            "Reader"->type = 3;
+        }
+
+        return type
     }
 }
