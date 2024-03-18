@@ -38,20 +38,24 @@ class WelcomeActivity : AppCompatActivity() {
                         Log.d("Response Success",authCheckResponse?.status.toString())
                         if(authCheckResponse?.status == true){
                             startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
+                            finish()
+
                         }
                     }else{
                         startActivity(Intent(this@WelcomeActivity, LoginAndSignupActivity::class.java))
+                        finish()
+
                         Log.d("Response Unsuccessful","Something Went Wrong")
                     }
                 }
 
                 override fun onFailure(call: Call<AuthCheckResponse>, t: Throwable) {
                     startActivity(Intent(this@WelcomeActivity, LoginAndSignupActivity::class.java))
+                    finish()
 
                     Log.d("Response Failure","Something Went Wrong: $t")
                 }
             })
-            finish()
         }
     }
 }
